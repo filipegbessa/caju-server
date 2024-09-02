@@ -1,0 +1,7 @@
+# compiled output
+node_modules
+
+yarn-error.log
+
+.env*
+!.env.example
