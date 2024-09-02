@@ -18,7 +18,6 @@ export const addRegistration = async (req: Request, res: Response) => {
     } else {
       registration = new Registration({
         ...registrationData,
-        createdAt: new Date(),
         updatedAt: new Date(),
       });
       await registration.save();
@@ -79,5 +78,25 @@ export const getRegistration = async (req: Request, res: Response) => {
   } catch (err) {
     console.error('Failed to get registration', err);
     res.status(500).json({ error: 'Failed to get registration' });
+  }
+};
+
+export const deleteRegistration = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const registration = await Registration.findOne({ id });
+
+    if (!registration) {
+      return res.status(404).json({ error: 'Registration not found' });
+    }
+
+    await Registration.deleteOne({ id });
+
+    return res
+      .status(200)
+      .json({ message: 'Registration deleted successfully' });
+  } catch (err: any) {
+    console.error('Failed to delete registration', err);
+    res.status(500).json({ error: 'Failed to delete registration' });
   }
 };

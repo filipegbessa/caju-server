@@ -7,5 +7,6 @@ router.get('/registration/:id', registrationController_1.getRegistration);
 router.post('/registrations', registrationController_1.addRegistration);
 router.get('/registrations', registrationController_1.getRegistrations);
 router.get('/registrations/search', registrationController_1.searchRegistrations);
+router.delete('/registration/:id', registrationController_1.deleteRegistration);
 exports.default = router;
 //# sourceMappingURL=registrationRoutes.js.map

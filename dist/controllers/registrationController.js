@@ -20,7 +20,7 @@ var __rest = (this && this.__rest) || function (s, e) {
     return t;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getRegistration = exports.searchRegistrations = exports.getRegistrations = exports.addRegistration = void 0;
+exports.deleteRegistration = exports.getRegistration = exports.searchRegistrations = exports.getRegistrations = exports.addRegistration = void 0;
 const Registration_1 = require("../models/Registration");
 const addRegistration = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -31,7 +31,7 @@ const addRegistration = (req, res) => __awaiter(void 0, void 0, void 0, function
             registration = yield Registration_1.Registration.findOneAndUpdate({ id }, Object.assign(Object.assign({}, updateData), { updatedAt: new Date() }), { new: true });
         }
         else {
-            registration = new Registration_1.Registration(Object.assign(Object.assign({}, registrationData), { createdAt: new Date(), updatedAt: new Date() }));
+            registration = new Registration_1.Registration(Object.assign(Object.assign({}, registrationData), { updatedAt: new Date() }));
             yield registration.save();
         }
         res.status(201).json(registration);
@@ -89,4 +89,22 @@ const getRegistration = (req, res) => __awaiter(void 0, void 0, void 0, function
     }
 });
 exports.getRegistration = getRegistration;
+const deleteRegistration = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { id } = req.params;
+        const registration = yield Registration_1.Registration.findOne({ id });
+        if (!registration) {
+            return res.status(404).json({ error: 'Registration not found' });
+        }
+        yield Registration_1.Registration.deleteOne({ id });
+        return res
+            .status(200)
+            .json({ message: 'Registration deleted successfully' });
+    }
+    catch (err) {
+        console.error('Failed to delete registration', err);
+        res.status(500).json({ error: 'Failed to delete registration' });
+    }
+});
+exports.deleteRegistration = deleteRegistration;
 //# sourceMappingURL=registrationController.js.map
