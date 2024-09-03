@@ -14,6 +14,6 @@ router.get('/user-auth', auth, isAthenticated);
 router.get('/users', getUsers);
 router.post('/users', addUser);
 router.get('/user/:id', getUser);
-router.post('/login', login);
+router.post('/users/login', login);
 
 export default router;

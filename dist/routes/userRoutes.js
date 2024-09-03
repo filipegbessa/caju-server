@@ -11,6 +11,6 @@ router.get('/user-auth', authentication_1.default, userController_1.isAthenticat
 router.get('/users', userController_1.getUsers);
 router.post('/users', userController_1.addUser);
 router.get('/user/:id', userController_1.getUser);
-router.post('/login', userController_1.login);
+router.post('/users/login', userController_1.login);
 exports.default = router;
 //# sourceMappingURL=userRoutes.js.map
